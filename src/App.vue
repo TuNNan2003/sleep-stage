@@ -1,20 +1,23 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <!-- 引入 EEGDisplay 组件 -->
+    <EEGDisplay />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import EEGDisplay from './components/EEGDisplay.vue'; // 确保路径正确
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    EEGDisplay
   }
-}
+};
 </script>
 
 <style>
+/* 可以在这里添加全局样式 */
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
