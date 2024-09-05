@@ -71,6 +71,7 @@ import axios from 'axios';
 import { ElSelect, ElOption, ElButton, ElRadioGroup, ElRadioButton } from 'element-plus';
 
 export default {
+  name: "originPage",
   components: {
     ElSelect,
     ElOption,
@@ -123,6 +124,7 @@ export default {
       formData.append('file', file);
 
       try {
+        console.log("ready to send")
         const response = await axios.post('http://127.0.0.1:5000/upload', formData);
         this.raw_signals = response.data.raw_signals;
         this.features = response.data.features;

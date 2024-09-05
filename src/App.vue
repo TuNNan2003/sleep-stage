@@ -1,18 +1,14 @@
 <template>
   <div id="app">
-    <!-- 引入 EEGDisplay 组件 -->
-    <EEGDisplay />
   </div>
+  <router-view></router-view>
 </template>
 
 <script>
-import EEGDisplay from './components/EEGDisplay.vue'; // 确保路径正确
+
 
 export default {
   name: 'App',
-  components: {
-    EEGDisplay
-  }
 };
 </script>
 
