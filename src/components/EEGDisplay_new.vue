@@ -51,17 +51,17 @@
             </div>
           </transition>
           <transition name="fade">
-            <div v-show="currentFeatureIndex === 1" class="chart-container-new">
+            <div v-show="currentFeatureIndex === 1" class="psd-container-new">
               <div ref="featureChart2" class="chart-container-new"></div>
             </div>
           </transition>
           <transition name="fade">
-            <div v-show="currentFeatureIndex === 2" class="chart-container-new">
+            <div v-show="currentFeatureIndex === 2" class="psd-container-new">
               <div ref="featureChart3" class="chart-container-new"></div>
             </div>
           </transition>
           <transition name="fade">
-            <div v-show="currentFeatureIndex === 3" class="chart-container-new">
+            <div v-show="currentFeatureIndex === 3" class="psd-container-new">
               <div ref="featureChart4" class="chart-container-new"></div>
             </div>
           </transition>
@@ -167,7 +167,9 @@
           console.log("classification:", this.classification);
   
           this.maxPage = Math.floor((this.raw_signals[this.selectedChannel].length - 3000) / 3000);
+
           this.initializeCharts();
+
         } catch (error) {
           console.error("Error uploading file:", error);
         }
@@ -233,24 +235,26 @@
   
         this.featureOptions = this.createFeatureOptions(this.features, 0, this.selectedChannel);
   
+        this.$nextTick(() => {
         // 初始化每个特征图表
         const chart1 = echarts.init(this.$refs.featureChart1);
         chart1.setOption(this.featureOptions[0]);
         this.featureCharts[0] = chart1;
-  
+
         const chart2 = echarts.init(this.$refs.featureChart2);
         chart2.setOption(this.featureOptions[1]);
         this.featureCharts[1] = chart2;
-  
+
         const chart3 = echarts.init(this.$refs.featureChart3);
         chart3.setOption(this.featureOptions[2]);
         this.featureCharts[2] = chart3;
-  
+
         const chart4 = echarts.init(this.$refs.featureChart4);
         chart4.setOption(this.featureOptions[3]);
         this.featureCharts[3] = chart4;
 
-        console.log("Feature charts initialized: ", this.featureCharts)
+        console.log("Feature charts initialized: ", this.featureCharts);
+        });
       },
       createRawSignalOption(signalData) {
         return {
@@ -333,14 +337,14 @@
         };
         const rawSignalColor = colorMap[pageLabels[0]];
   
-        // 更新原始信号图表
-        this.rawSignalChart.setOption({
-          series: [{
-            data: rawSignalData,
-            lineStyle: { color: rawSignalColor }, // 设置线条颜色
-            areaStyle: { color: rawSignalColor, opacity: 1 } // 设置区域填充色
-          }]
-        });
+      // 更新原始信号图表
+      this.rawSignalChartNew.setOption({
+        series: [{
+          data: rawSignalData,
+          lineStyle: { color: rawSignalColor }, // 设置线条颜色
+          areaStyle: { color: rawSignalColor, opacity: 0.2 } // 设置区域填充色
+        }]
+      });
         console.log("updateCharts更新原始信号成功")
   
         // 创建并更新特征图表
@@ -363,6 +367,21 @@
       nextPage() {
         if (this.currentPage < this.maxPage) {
           this.currentPage++;
+          const chart1 = echarts.init(this.$refs.featureChart1);
+          chart1.setOption(this.featureOptions[0]);
+          this.featureCharts[0] = chart1;
+
+          const chart2 = echarts.init(this.$refs.featureChart2);
+          chart2.setOption(this.featureOptions[1]);
+          this.featureCharts[1] = chart2;
+
+          const chart3 = echarts.init(this.$refs.featureChart3);
+          chart3.setOption(this.featureOptions[2]);
+          this.featureCharts[2] = chart3;
+
+          const chart4 = echarts.init(this.$refs.featureChart4);
+          chart4.setOption(this.featureOptions[3]);
+          this.featureCharts[3] = chart4;
           this.updateCharts();
         }
       },
@@ -506,17 +525,17 @@
   
   /* 图表容器样式 */
   .chart-container-new {
-  width: 100%;
-  height: 400px;
+  width: 500px;
+  height: 300px;
   margin-bottom: 20px;
   }
   
-.features-grid-new {
+  .features-grid-new {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-around;
+  align-items: stretch;
   width: 100%;
-}
+  }
   
   /* 翻页控件样式 */
   .pagination-controls {
